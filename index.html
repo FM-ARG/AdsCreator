@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="background-globes">
         <div class="globe globe-1"></div>
@@ -25,7 +27,7 @@
         <div class="nav-links">
             <a href="#" class="active">Crear</a>
             <a href="#">Galería</a>
-            <a href="#">Configuración</a>
+            <a href="#" id="settingsBtn">Configuración API</a>
         </div>
     </nav>
 
@@ -34,7 +36,7 @@
         <section id="hero" class="hero-section fade-in">
             <h1>Crea Anuncios <span class="gradient-text">Irresistibles</span> en Segundos</h1>
             <p class="subtitle">Ingresa la URL de tu producto y deja que nuestra IA diseñe y redacte por ti.</p>
-            
+
             <div class="url-input-container glass">
                 <i class="fa-solid fa-link"></i>
                 <input type="url" id="urlInput" placeholder="https://tu-tienda.com/producto/..." required>
@@ -113,13 +115,38 @@
                 <h2>Tus Anuncios Generados</h2>
                 <button class="btn-secondary" id="resetBtn"><i class="fa-solid fa-rotate-left"></i> Nuevo</button>
             </div>
-            
+
             <div class="results-grid" id="resultsGrid">
                 <!-- Cards injected via JS -->
             </div>
         </section>
     </main>
 
+    <!-- SETTINGS MODAL -->
+    <div id="settingsModal" class="modal hidden">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2>Configuración AI</h2>
+                <span class="close-modal" id="closeSettings">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Ingresa tu API Key de Google Gemini para habilitar la generación real y gratuita.</p>
+                <div class="form-group">
+                    <label for="apiKeyInput">Gemini API Key</label>
+                    <input type="password" id="apiKeyInput" placeholder="Pegar clave aquí..." class="glass-input">
+                </div>
+                <p class="small-text">Puedes obtener una clave gratis en <a
+                        href="https://aistudio.google.com/app/apikey" target="_blank"
+                        style="color:var(--accent-primary)">Google AI Studio</a>.</p>
+                <p class="small-text">Tu clave se guarda localmente en tu navegador. Nunca se comparte.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="saveSettingsBtn" class="btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
+
 </html>
