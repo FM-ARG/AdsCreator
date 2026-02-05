@@ -62,8 +62,26 @@ class App {
             this.resultsSection.innerHTML = '<h2 class="section-title">Resultados Generados</h2><div class="results-grid"></div><button class="btn-primary" onclick="location.reload()" style="margin-top: 2rem;">Crear Nuevo</button>';
             const grid = this.resultsSection.querySelector('.results-grid');
 
-            for (const variant of variations) {
-                // Generate Copy per variation (can vary slightly if we random per call, or usually consistent)
+            // Copy variation seed
+            let copyIndex = 0;
+
+            for (let i = 0; i < variations.length; i++) {
+                const variant = variations[i];
+
+                // Cycle through available images
+                // e.g. Variation 1 -> Image 1, Var 2 -> Image 2 (or 1 if only 1 exists)
+                const imgIndex = i % assets.images.length;
+                const specificImage = assets.images[imgIndex]?.src || brandData.image;
+
+                // Create variation-specific brand data
+                const variantData = {
+                    ...brandData,
+                    image: specificImage
+                };
+
+                // Generate Copy per variation (try to get unique copy if possible)
+                // We'll pass a different "seed" or just rely on randomness. 
+                // Since generatesCopy is random, we call it fresh each time.
                 const copy = this.adEngine.generateCopy(brandData, objective, tone, cta);
 
                 // Create Container
@@ -89,7 +107,7 @@ class App {
                 card.querySelector('.canvas-container').appendChild(canvas);
 
                 await this.templateEngine.render(canvas, variant.id, {
-                    ...brandData,
+                    ...variantData, // Use the specific image
                     copy
                 });
 

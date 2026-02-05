@@ -110,10 +110,33 @@ class ScraperService {
                 : null
         };
 
-        // Attempt to find logo (heuristic: img with 'logo' in class or id, or first image in header)
-        const logo = images.find(img => img.src.toLowerCase().includes('logo') || img.alt?.toLowerCase().includes('logo'))
-            || images[0];
+        // Sort images by size (width * height) descending
+        const sortedImages = images
+            .sort((a, b) => (b.width * b.height) - (a.width * a.height));
 
-        return { images, meta, logo };
+        // Get unique images (avoid duplicates by src)
+        const uniqueImages = [];
+        const seenSrc = new Set();
+
+        for (const img of sortedImages) {
+            if (!seenSrc.has(img.src)) {
+                seenSrc.add(img.src);
+                uniqueImages.push(img);
+                if (uniqueImages.length >= 3) break; // We need at most 3 top images
+            }
+        }
+
+        // Attempt to find logo (heuristic: img with 'logo' in class, id, or alt)
+        const logo = images.find(img =>
+            (img.src.toLowerCase().includes('logo') || img.alt?.toLowerCase().includes('logo')) &&
+            !img.src.endsWith('.svg') // Prefer PNG/JPG for canvas compatibility if possible, though SVG works usually
+        ) || images[images.length - 1]; // Fallback to smallest image (usually logo-like) if explicit logo not found? 
+        // Actually, let's just default to null if no clear logo, or small image.
+
+        return {
+            images: uniqueImages.length > 0 ? uniqueImages : (images.length > 0 ? [images[0]] : []),
+            meta,
+            logo
+        };
     }
 }
