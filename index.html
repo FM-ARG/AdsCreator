@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Ads Creator - Generador de Anuncios Premium</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+        <div class="globe globe-3"></div>
+    </div>
+
+    <nav class="navbar glass">
+        <div class="logo">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span>AdsCreator.ai</span>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="active">Crear</a>
+            <a href="#">Galería</a>
+            <a href="#">Configuración</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- HERO SECTION -->
+        <section id="hero" class="hero-section fade-in">
+            <h1>Crea Anuncios <span class="gradient-text">Irresistibles</span> en Segundos</h1>
+            <p class="subtitle">Ingresa la URL de tu producto y deja que nuestra IA diseñe y redacte por ti.</p>
+            
+            <div class="url-input-container glass">
+                <i class="fa-solid fa-link"></i>
+                <input type="url" id="urlInput" placeholder="https://tu-tienda.com/producto/..." required>
+                <button id="analyzeBtn" class="btn-primary">
+                    Analizar URL <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- CONFIGURATION SECTION (Hidden initially) -->
+        <section id="configSection" class="config-section hidden">
+            <div class="analysis-status glass">
+                <div class="status-header">
+                    <i class="fa-solid fa-robot"></i>
+                    <h3>Análisis de Marca Completado</h3>
+                </div>
+                <div class="brand-traits">
+                    <div class="trait">
+                        <span class="label">Colores Detectados</span>
+                        <div class="color-palette" id="detectedColors">
+                            <!-- Injected via JS -->
+                        </div>
+                    </div>
+                    <div class="trait">
+                        <span class="label">Vibe</span>
+                        <span class="tag" id="detectedVibe">Moderno & Clean</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="config-form glass">
+                <h2>Configura tu Campaña</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Objetivo</label>
+                        <select id="objectiveDetail">
+                            <option value="sales">Ventas / Conversión</option>
+                            <option value="traffic">Tráfico Web</option>
+                            <option value="awareness">Reconocimiento de Marca</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tono de Voz</label>
+                        <select id="toneSelect">
+                            <option value="professional">Profesional & Serio</option>
+                            <option value="enthusiastic">Entusiasta & Energético</option>
+                            <option value="humorous">Divertido & Casual</option>
+                            <option value="urgent">Urgente / FOMO</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Call to Action (CTA)</label>
+                        <select id="ctaSelect">
+                            <option value="shop_now">Comprar Ahora</option>
+                            <option value="learn_more">Más Información</option>
+                            <option value="sign_up">Registrarse</option>
+                            <option value="get_offer">Obtener Oferta</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="generateBtn" class="btn-primary full-width">
+                    <i class="fa-solid fa-bolt"></i> Generar 3 Variaciones
+                </button>
+            </div>
+        </section>
+
+        <!-- LOADING OVERLAY -->
+        <div id="loadingOverlay" class="loading-overlay hidden">
+            <div class="loader"></div>
+            <h3 id="loadingText">Diseñando anuncios...</h3>
+        </div>
+
+        <!-- RESULTS SECTION -->
+        <section id="resultsSection" class="results-section hidden">
+            <div class="section-header">
+                <h2>Tus Anuncios Generados</h2>
+                <button class="btn-secondary" id="resetBtn"><i class="fa-solid fa-rotate-left"></i> Nuevo</button>
+            </div>
+            
+            <div class="results-grid" id="resultsGrid">
+                <!-- Cards injected via JS -->
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
